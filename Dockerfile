@@ -12,7 +12,9 @@ FROM base AS deps
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
 # `postinstall` runs `prisma generate`, so the schema must be present above.
-RUN npm ci
+# `npm install` (not `ci`) reconciles platform-specific optional deps whose
+# entries the Windows-generated lock file omits (e.g. @emnapi/* on Linux).
+RUN npm install --no-audit --no-fund
 
 # ---- Builder --------------------------------------------------------------
 FROM base AS builder
