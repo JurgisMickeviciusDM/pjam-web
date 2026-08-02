@@ -1,0 +1,71 @@
+// P&J Asset Management — database schema
+// Prisma 6 + PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+/// Admins manage the CMS + messages; clients access the private portal.
+model User {
+  id           String             @id @default(cuid())
+  email        String             @unique
+  name         String
+  passwordHash String
+  role         Role               @default(CLIENT)
+  createdAt    DateTime           @default(now())
+  holdings     PortfolioHolding[]
+}
+
+/// Per-client portfolio rows shown inside the private client portal.
+model PortfolioHolding {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  name       String
+  category   String
+  allocation Float    @default(0) // percentage of the portfolio
+  value      Int      @default(0) // position value (currency units)
+  changePct  Float    @default(0) // trailing performance
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+/// Announcements broadcast to every client in the portal.
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+}
+
+/// Submissions from the public contact form.
+model ContactMessage {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+/// CMS overrides. Each row overrides one default content key
+/// (see lib/content.ts). Missing keys fall back to the defaults.
+model SiteContent {
+  key       String   @id
+  value     String
+  updatedAt DateTime @default(now()) @updatedAt
+}

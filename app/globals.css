@@ -1,26 +1,177 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ */
+/*  P&J Asset Management — design tokens                                */
+/*  Palette + type scale reverse-engineered from the original site.    */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Brand palette */
+  --color-cream: #f8f8f4; /* primary light background */
+  --color-sand: #efeee6; /* card / alt light surface */
+  --color-stone: #dbd9d3; /* muted borders / bands */
+  --color-sage: #d7d9ca; /* muted green accent band */
+  --color-olive: #3e3d35; /* primary dark ink + dark sections */
+  --color-ink: #2b2a24; /* near-black headings */
+  --color-navy: #0b1c3a; /* deep navy sections */
+  --color-gold: #f2c200; /* accent (matches the brand logo) */
+  --color-muted: #71716f; /* secondary text */
+  --color-noir: #141310; /* cinematic near-black (warm) */
+  --color-char: #20201a; /* charcoal surface */
+  --color-greige: #b7b8a6; /* muted sage-grey for captions on dark */
+
+  /* Easing used across scroll animations */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Font families are wired to next/font CSS variables (see app/layout.tsx). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-madefor), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-madefor), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-olive);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Keep focus rings tasteful but visible for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 82rem;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+
+  /* Thin hairline used to divide sections. */
+  .hairline {
+    height: 1px;
+    background: color-mix(in srgb, currentColor 16%, transparent);
+  }
+}
+
+/* Infinite marquee for the partners strip. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Cinematic vignette for media-backed sections. */
+.vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 120% at 50% 30%,
+    transparent 40%,
+    rgba(10, 10, 8, 0.55) 100%
+  );
+}
+
+/* Slow ambient drift for decorative "figure" spheres. */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+/* Soft grain overlay to add depth to dark hero sections. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
