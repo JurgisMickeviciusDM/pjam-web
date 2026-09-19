@@ -10,9 +10,9 @@ const LINKEDIN_URL =
 const DATA_INNOVATIONS_URL = "https://www.datainnovations.lt/";
 
 export function Footer({ content }: { content: ContentMap }) {
-  const year = 2025;
+  const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-noir text-cream">
+    <footer className="bg-noir text-cream">
       <div className="container-x py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
           {/* Brand + blurb */}
@@ -103,14 +103,6 @@ export function Footer({ content }: { content: ContentMap }) {
             </a>
           </p>
         </div>
-      </div>
-
-      {/* Oversized wordmark watermark */}
-      <div
-        aria-hidden
-        className="pointer-events-none select-none px-4 text-center font-display text-[18vw] font-extrabold leading-none tracking-tighter text-cream/[0.03]"
-      >
-        P&amp;J
       </div>
     </footer>
   );
