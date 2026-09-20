@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inbox, MailOpen, Users, FileText, ArrowRight } from "lucide-react";
+import {
+  Inbox,
+  MailOpen,
+  Users,
+  FileText,
+  ArrowRight,
+  LayoutGrid,
+} from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = { title: "Admin Dashboard" };
@@ -49,6 +56,43 @@ export default async function AdminDashboard() {
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+        <Link
+          href="/admin/pages"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-ink/10 bg-ink px-6 py-5 text-cream transition-colors hover:bg-olive"
+        >
+          <span className="flex items-center gap-4">
+            <LayoutGrid className="h-5 w-5 text-gold" />
+            <span>
+              <span className="block font-display text-lg font-bold tracking-tight">
+                Build the home page
+              </span>
+              <span className="block text-sm text-cream/60">
+                Drag, hide, and edit blocks
+              </span>
+            </span>
+          </span>
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </Link>
+        <Link
+          href="/admin/content"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-ink/10 bg-sand px-6 py-5 text-ink transition-colors hover:border-ink/25"
+        >
+          <span className="flex items-center gap-4">
+            <FileText className="h-5 w-5 text-olive/70" />
+            <span>
+              <span className="block font-display text-lg font-bold tracking-tight">
+                Edit all text
+              </span>
+              <span className="block text-sm text-muted">
+                Every page's copy in one place
+              </span>
+            </span>
+          </span>
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </Link>
       </div>
 
       <div className="mt-10 flex items-center justify-between">

@@ -73,6 +73,7 @@ export const contentSchema: ContentSection[] = [
     id: "home-strategies",
     title: "Home · Investment Strategies",
     fields: [
+      t("home.strategies.eyebrow", "Eyebrow label", "01 — Overview"),
       t("home.strategies.titleTop", "Heading line 1", "Our Investment"),
       t("home.strategies.titleBottom", "Heading line 2", "Strategies"),
       a(
@@ -80,6 +81,7 @@ export const contentSchema: ContentSection[] = [
         "Body",
         "P&J Asset Management is a diversified investment firm with a strong focus on real estate, private enterprises, and strategic ventures across various industries. Our approach combines deep market insight, disciplined execution, and long-term vision to create sustainable value. We are committed to identifying high-potential opportunities and managing them with precision to ensure consistent growth and superior returns. Our strategy is driven by one goal — to execute every investment successfully and exceed the expectations of our partners and stakeholders.",
       ),
+      t("home.strategies.link", "Link label", "Discover our approach"),
     ],
   },
   {
@@ -100,6 +102,7 @@ export const contentSchema: ContentSection[] = [
     id: "home-responsible",
     title: "Home · Responsible Investment",
     fields: [
+      t("home.responsible.eyebrow", "Eyebrow label", "02 — Philosophy"),
       t("home.responsible.titleTop", "Heading line 1", "Committed to"),
       t(
         "home.responsible.titleBottom",
@@ -117,24 +120,38 @@ export const contentSchema: ContentSection[] = [
     id: "home-origins",
     title: "Home · Origins",
     fields: [
+      t("home.origins.eyebrow", "Eyebrow label", "03 — Our Story"),
+      t("home.origins.watermark", "Background number", "2021"),
       t("home.origins.title", "Heading", "The Origins of Excellence"),
       a(
         "home.origins.body",
         "Body",
         "Our journey began in 2021, when two brothers set out to build something greater — a lasting legacy that creates meaningful value for the world. What started as a shared passion for investing soon evolved into a diversified portfolio spanning equities, bonds, real estate, and enterprise development. Since then, our investments have grown substantially, exceeding six figures — achieved entirely through independent capital and strategic vision.",
       ),
+      t("home.origins.link", "Button label", "Read our story"),
     ],
   },
   {
     id: "home-partnership",
     title: "Home · Strategic Partnership",
     fields: [
+      t("home.partnership.eyebrow", "Eyebrow label", "04 — Partnership"),
       t("home.partnership.title", "Heading", "Strategic Partnership"),
       a(
         "home.partnership.body",
         "Body",
         "We build enduring relationships with visionary partners who share our commitment to excellence and long-term value creation.",
       ),
+      t("home.partnership.partnerLabel", "Partner label", "Technology Partner"),
+      t("home.partnership.partnerName", "Partner name", "Data Innovations"),
+    ],
+  },
+  {
+    id: "home-cta",
+    title: "Home · Closing call-to-action",
+    fields: [
+      t("home.cta.title", "Heading", "Ready to invest in your future?"),
+      t("home.cta.button", "Button label", "Get in touch"),
     ],
   },
   {
